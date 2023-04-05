@@ -34,6 +34,7 @@ public class DemoUtils {
     }
 
     public Object checkNull(Object obj) {
+
         if (obj != null) {
             return obj;
         }
