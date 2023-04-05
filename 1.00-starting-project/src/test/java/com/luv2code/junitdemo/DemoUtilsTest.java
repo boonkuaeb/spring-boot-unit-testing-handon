@@ -3,6 +3,7 @@ package com.luv2code.junitdemo;
 import org.junit.jupiter.api.*;
 
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +23,7 @@ class DemoUtilsTest {
 
     @AfterEach
     void setUpAfterEach() {
-        System.out.println("Running @AfterEach\n");
+//        System.out.println("Running @AfterEach\n");
     }
 
     @BeforeAll
@@ -98,5 +99,21 @@ class DemoUtilsTest {
         assertLinesMatch(theList,demoUtils.getAcademyInList(),"Lines should match");
     }
 
+    @DisplayName("Throws and Does not Throws")
+    @Test
+    void testThrowsAndDoesNotThrows()
+    {
+        // Use Lamda expression
+        assertThrows(Exception.class,()->{demoUtils.throwException(-1);},"Should throw exception");
+        assertDoesNotThrow(()->demoUtils.throwException(1),"Should not throw exeception");
+    }
+
+
+    @DisplayName("Timeout")
+    @Test
+    void testTimeout()
+    {
+        assertTimeoutPreemptively(Duration.ofMillis(3000),()->{demoUtils.checkTimeout();},"Method should execute in 3000 milliseconds");
+    }
 
 }
