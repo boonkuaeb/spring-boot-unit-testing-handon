@@ -1,6 +1,8 @@
 package com.luv2code.junitdemo;
 
+import jdk.jfr.Enabled;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
 
 
 import java.time.Duration;
@@ -45,6 +47,15 @@ class DemoUtilsTest {
         // execute and assert
         assertEquals(6, demoUtils.add(2, 4), "2+4 must be 6");
         assertNotEquals(6, demoUtils.add(1, 9), "1+9 must not be 6");
+
+    }
+
+    @Test
+    @DisplayName("Multiply")
+    void testMultiply()
+    {
+        assertEquals(4,demoUtils.multiply(2,2),"2x4 must be 4");
+
     }
 
     @Test
@@ -121,4 +132,79 @@ class DemoUtilsTest {
         assertTimeoutPreemptively(Duration.ofMillis(3000),()->{demoUtils.checkTimeout();},"Method should execute in 3000 milliseconds");
     }
 
+    @DisplayName("For Mac Only")
+    @Test
+    @EnabledOnOs(OS.MAC)
+    void testForMacOnly()
+    {
+        assertEquals("a","a");
+    }
+
+    @DisplayName("For Windows Only")
+    @Test
+    @EnabledOnOs(OS.WINDOWS)
+    void testForWindowOnly()
+    {
+        assertEquals("a","a");
+    }
+
+    @DisplayName("For Windows And MAC")
+    @Test
+    @EnabledOnOs({OS.WINDOWS,OS.MAC})
+    void testForWindowAndMac()
+    {
+        assertEquals("a","a");
+    }
+
+
+    @DisplayName("For JAVA 17 Only")
+    @Test
+    @EnabledOnJre(JRE.JAVA_17)
+    void testForJava17Only()
+    {
+        assertEquals("a","a");
+    }
+
+    @DisplayName("For JAVA 17,11 Only")
+    @Test
+    @EnabledOnJre({JRE.JAVA_17,JRE.JAVA_11})
+    void testForJava17And11()
+    {
+        assertEquals("a","a");
+    }
+
+
+    @DisplayName("For JAVA 11 Only")
+    @Test
+    @EnabledOnJre(JRE.JAVA_11)
+    void testForJava11()
+    {
+        assertEquals("a","a");
+    }
+
+
+    @DisplayName("From JAVA 8 to 16")
+    @Test
+    @EnabledForJreRange(min = JRE.JAVA_8, max = JRE.JAVA_16)
+    void testForJreRange8To16()
+    {
+        assertEquals("a","a");
+    }
+
+    @DisplayName("From JAVA 11 to 18")
+    @Test
+    @EnabledForJreRange(min = JRE.JAVA_11, max = JRE.JAVA_18)
+    void testForJreRange11To18()
+    {
+        assertEquals("a","a");
+    }
+
+
+    @Test
+    @DisplayName("Disable This Test")
+    @Disabled
+    void testDisable()
+        {
+
+        }
 }
