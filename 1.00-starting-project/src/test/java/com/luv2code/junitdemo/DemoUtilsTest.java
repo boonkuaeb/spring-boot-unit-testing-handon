@@ -3,6 +3,8 @@ package com.luv2code.junitdemo;
 import org.junit.jupiter.api.*;
 
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -15,7 +17,7 @@ class DemoUtilsTest {
     void setUpBeforeEach() {
         // set up
         demoUtils = new DemoUtils();
-        System.out.println("@BeforeEach executes before the execution of each method");
+//        System.out.println("@BeforeEach executes before the execution of each method");
     }
 
     @AfterEach
@@ -25,12 +27,12 @@ class DemoUtilsTest {
 
     @BeforeAll
     static void setUpBeforeAll() {
-        System.out.println("@BeforeAll executes only one before all test methods executions in the class\n");
+//        System.out.println("@BeforeAll executes only one before all test methods executions in the class\n");
     }
 
     @AfterAll
     static void setUpAfterAll() {
-        System.out.println("@AfterAll executes only one after all test methods executions in the class\n");
+//        System.out.println("@AfterAll executes only one after all test methods executions in the class\n");
     }
 
     @Test
@@ -70,7 +72,30 @@ class DemoUtilsTest {
         int five = 5;
         assertTrue(demoUtils.isGreater(one, five), "This should return true");
         assertFalse(demoUtils.isGreater(five, one), "This should return false");
+    }
 
+    @DisplayName("Array Equals")
+    @Test
+    void testArrayEquals()
+    {
+        String[] stringArray = {"A","B","C"};
+        assertArrayEquals(stringArray,demoUtils.getFirstThreeLettersOfAlphabet(),"Arrays should be the same");
+    }
+
+    @DisplayName("Iterable equals")
+    @Test
+    void testIterableEquals()
+    {
+        List<String> theList = List.of("luv", "2", "code");
+        assertIterableEquals(theList,demoUtils.getAcademyInList(),"Expected list should be same as actual list");
+    }
+
+    @DisplayName("Lines match")
+    @Test
+    void testLinesMatch()
+    {
+        List<String> theList = List.of("luv", "2", "code");
+        assertLinesMatch(theList,demoUtils.getAcademyInList(),"Lines should match");
     }
 
 
