@@ -9,6 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 //@DisplayNameGeneration(CustomDisplayName.ReplaceCamelCase.class)
 class DemoUtilsTest {
 
@@ -38,6 +39,7 @@ class DemoUtilsTest {
 
     @Test
     @DisplayName("Equals and Not Equals")
+    @Order(3)
     void testEqualsAndNotEquals() {
 
         // execute and assert
@@ -47,6 +49,7 @@ class DemoUtilsTest {
 
     @Test
    @DisplayName("Null and Not null")
+    @Order(1)
     void testNullAndNotNull() {
 
         String str1 = null;
@@ -101,6 +104,7 @@ class DemoUtilsTest {
 
     @DisplayName("Throws and Does not Throws")
     @Test
+    @Order(-1)
     void testThrowsAndDoesNotThrows()
     {
         // Use Lamda expression
@@ -111,6 +115,7 @@ class DemoUtilsTest {
 
     @DisplayName("Timeout")
     @Test
+    @Order(10)
     void testTimeout()
     {
         assertTimeoutPreemptively(Duration.ofMillis(3000),()->{demoUtils.checkTimeout();},"Method should execute in 3000 milliseconds");
