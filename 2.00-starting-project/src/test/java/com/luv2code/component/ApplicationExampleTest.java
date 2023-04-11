@@ -1,6 +1,5 @@
-package com.luv2code.test;
+package com.luv2code.component;
 
-import com.luv2code.component.MvcTestingExampleApplication;
 import com.luv2code.component.models.CollegeStudent;
 import com.luv2code.component.models.StudentGrades;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,6 +64,7 @@ public class ApplicationExampleTest {
         assertEquals(353.25, studentGrades.addGradeResultsForSingleClass(
                 student.getStudentGrades().getMathGradeResults()
         ));
+        assertEquals("CollegeStudent{firstname='Boonkuae', lastname='Boonsutta', emailAddress='mail@mail.com', studentGrades=StudentGrades{mathGradeResults=[100.0, 85.0, 76.5, 91.75]}}",student.toString());
     }
 
     @Test
@@ -96,6 +97,17 @@ public class ApplicationExampleTest {
         assertNotNull(studentGrades.checkNull(student.getStudentGrades().getMathGradeResults()),"object should not be null");
     }
 
+    @Test
+    public void testStudentGradesContractor()
+    {
+        List<Double> mathGradeResults = new ArrayList<>(Arrays.asList(100.0, 85.0, 76.50 ,91.75));
+        StudentGrades studentGrades = new StudentGrades(mathGradeResults);
+        assertSame(mathGradeResults, studentGrades.getMathGradeResults(),"the result should same");
+        assertEquals("StudentGrades{mathGradeResults=[100.0, 85.0, 76.5, 91.75]}",studentGrades.toString());
+
+    }
+
+
     @DisplayName("Create Student without grade init")
     @Test
     public void createStudentWithoutGradeInit()
@@ -107,6 +119,21 @@ public class ApplicationExampleTest {
         assertNotNull(studentTwo.getFirstname());
         assertNotNull(studentTwo.getLastname());
         assertNotNull(studentTwo.getEmailAddress());
+        assertEquals("Bird Black",studentTwo.getFullName());
+        assertEquals("Bird Black mail@mail2.com",studentTwo.studentInformation());
+        assertNull(studentGrades.checkNull(studentTwo.getStudentGrades()));
+    }
+
+    @DisplayName("Create Student without grade init constructor")
+    @Test
+    public void createStudentWithoutGradeInitConstructor()
+    {
+        CollegeStudent studentTwo = new CollegeStudent("Bird","Black","mail@mail2.com");
+        assertNotNull(studentTwo.getFirstname());
+        assertNotNull(studentTwo.getLastname());
+        assertNotNull(studentTwo.getEmailAddress());
+        assertEquals("Bird Black",studentTwo.getFullName());
+        assertEquals("Bird Black mail@mail2.com",studentTwo.studentInformation());
         assertNull(studentGrades.checkNull(studentTwo.getStudentGrades()));
     }
 
