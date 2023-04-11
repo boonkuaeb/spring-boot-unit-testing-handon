@@ -4,6 +4,7 @@ import com.luv2code.component.MvcTestingExampleApplication;
 import com.luv2code.component.models.CollegeStudent;
 import com.luv2code.component.models.StudentGrades;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest(classes = MvcTestingExampleApplication.class)
 public class ApplicationExampleTest {
@@ -49,10 +53,23 @@ public class ApplicationExampleTest {
         studentGrades.setMathGradeResults(new ArrayList<>(Arrays.asList(100.0, 85.0, 76.50 ,91.75)));
         student.setStudentGrades(studentGrades);
     }
-    @Test
-    void basicTest()
-    {
 
+    @Test
+    @DisplayName("Add grade result for Student Grades")
+    public void addGradeResultForStudentGrades()
+    {
+        assertEquals(353.25, studentGrades.addGradeResultsForSingleClass(
+                student.getStudentGrades().getMathGradeResults()
+        ));
+    }
+
+    @Test
+    @DisplayName("Add grade result for Student Grades not equal")
+    public void addGradeResultForStudentGradesNotEqual()
+    {
+        assertNotEquals(0, studentGrades.addGradeResultsForSingleClass(
+                student.getStudentGrades().getMathGradeResults()
+        ));
     }
 }
 
